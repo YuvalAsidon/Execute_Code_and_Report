@@ -29,10 +29,11 @@ def check_wireless(x):
 
 def all_passwords(names_network):
     result = ""
-    for i in range((len(names_network) / 2)):
+    for i in range(len(names_network)):
         command = 'netsh wlan show profile name="{}" key=clear'.format(names_network[i])
         result += check_output(command, shell=True)
     return result
+
 
 
 command = 'netsh wlan show profile'
